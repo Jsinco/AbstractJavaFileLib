@@ -1,7 +1,5 @@
 package dev.jsinco.abstractjavafilelib;
 
-import org.slf4j.Logger;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +9,7 @@ import java.nio.file.Files;
 public abstract class AbstractFileManager extends ConfigurationSection {
 
     protected final static File dataFolder = FileLibSettings.getDataFolder();
-    protected final static Logger logger = FileLibSettings.getLogger();
+    protected final static LibLogger logger = FileLibSettings.getLogger();
 
     protected final File file;
 

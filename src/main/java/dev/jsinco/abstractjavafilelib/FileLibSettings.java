@@ -1,18 +1,22 @@
 package dev.jsinco.abstractjavafilelib;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 public abstract class FileLibSettings {
 
     private static File dataFolder;
-    private static Logger logger;
+    private static LibLogger libLogger;
 
     public static void set(File dataFolder, Logger logger) {
         FileLibSettings.dataFolder = dataFolder;
-        FileLibSettings.logger = logger;
+        libLogger = new LibLogger(logger);
+    }
+
+    public static void set(File dataFolder, org.slf4j.Logger logger) {
+        FileLibSettings.dataFolder = dataFolder;
+        libLogger = new LibLogger(logger);
     }
 
     public static File getDataFolder() {
@@ -21,15 +25,16 @@ public abstract class FileLibSettings {
             File jarFile = new File(path);
             String jarDir = jarFile.getParentFile().getAbsolutePath();
 
-            dataFolder = new File(jarDir);
+            dataFolder = new File(jarDir + File.separator + "data");
+            dataFolder.mkdirs();
         }
         return dataFolder;
     }
 
-    public static Logger getLogger() {
-        if (logger == null) {
-            logger = LoggerFactory.getLogger(AbstractFileManager.class);
+    public static LibLogger getLogger() {
+        if (libLogger == null) {
+            libLogger = new LibLogger(Logger.getGlobal());
         }
-        return logger;
+        return libLogger;
     }
 }
