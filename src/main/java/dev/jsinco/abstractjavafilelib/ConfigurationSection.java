@@ -6,6 +6,7 @@ import java.util.AbstractList;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -32,12 +33,16 @@ public class ConfigurationSection {
 
     public ConfigurationSection getConfigurationSection(String key) {
         data.computeIfAbsent(key, k -> new LinkedHashMap<String, Object>());
-        if (data.get(key) instanceof LinkedHashMap<?, ?>) { // SNAKEYAML + GSON
-            return new ConfigurationSection((LinkedHashMap<String, Object>) data.get(key));
-        } else if (data.get(key) instanceof LinkedTreeMap<?, ?>) { // GSON
-            return new ConfigurationSection((LinkedTreeMap<String, Object>) data.get(key));
+        Object object = data.get(key);
+
+        if (object instanceof LinkedHashMap<?, ?>) { // SNAKEYAML + GSON
+            return new ConfigurationSection((LinkedHashMap<String, Object>) object);
+        } else if (object instanceof LinkedTreeMap<?, ?>) { // GSON
+            return new ConfigurationSection((LinkedTreeMap<String, Object>) object);
+        } else if (object instanceof HashMap<?,?>) {
+            return new ConfigurationSection((HashMap<String, Object>) object);
         }
-        return new ConfigurationSection((AbstractMap<String, Object>) data.get(key)); // UNKNOWN
+        return new ConfigurationSection((AbstractMap<String, Object>) object); // UNKNOWN
     }
 
     private Object getLastFromSection(String path) {
