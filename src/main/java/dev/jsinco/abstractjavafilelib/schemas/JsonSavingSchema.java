@@ -94,13 +94,16 @@ public class JsonSavingSchema extends AbstractFileManager {
     }
 
 
-
     @Override
     public void save() {
+        save(true);
+    }
+
+    public void save(boolean indent) {
         Preconditions.checkArgument(file != null, "File cannot be null");
 
         try (JsonWriter jsonWriter = new JsonWriter(new FileWriter(file))){
-            jsonWriter.setIndent("    ");
+            if (indent) jsonWriter.setIndent("    ");
             gson.toJson(this.data, LinkedHashMap.class, jsonWriter);
             jsonWriter.flush();
         } catch (IOException e) {
