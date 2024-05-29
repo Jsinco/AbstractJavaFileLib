@@ -113,6 +113,6 @@ public class JsonSavingSchema extends AbstractFileManager {
 
 
     public static boolean isJson(File file) {
-        return file.isFile() && (file.getName().endsWith(".json") || file.getName().endsWith(".gson"));
+        return file.isFile() && (file.getName().endsWith(".json") || file.getName().endsWith(".gson") || file.getName().endsWith(".jsonl"));
     }
 }
