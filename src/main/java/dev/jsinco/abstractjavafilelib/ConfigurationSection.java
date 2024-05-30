@@ -1,6 +1,7 @@
 package dev.jsinco.abstractjavafilelib;
 
 import com.google.gson.internal.LinkedTreeMap;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.AbstractList;
 import java.util.AbstractMap;
@@ -45,6 +46,7 @@ public class ConfigurationSection {
         return new ConfigurationSection((AbstractMap<String, Object>) object); // UNKNOWN
     }
 
+    @Nullable
     private Object getLastFromSection(String path) {
         List<String> keys = new ArrayList<>(List.of(path.split("\\.")));
         String lastKey = keys.remove(keys.size() - 1);
@@ -67,69 +69,114 @@ public class ConfigurationSection {
 
 
     public String getString(String path) {
-        return (String) getLastFromSection(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof String) {
+            return (String) object;
+        }
+        return null;
     }
 
     public int getInt(String path) {
-        return (int) getLastFromSection(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof Integer) {
+            return (int) object;
+        }
+        return 0;
     }
 
     public boolean getBoolean(String path) {
-        return (boolean) getLastFromSection(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof Boolean) {
+            return (boolean) object;
+        }
+        return false;
     }
 
     public double getDouble(String path) {
-        return (double) getLastFromSection(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof Double) {
+            return (double) object;
+        }
+        return 0.0;
     }
 
     public long getLong(String path) {
-        return (long) getLastFromSection(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof Long) {
+            return (long) object;
+        }
+        return 0L;
     }
 
     public float getFloat(String path) {
-        return (float) getLastFromSection(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof Float) {
+            return (float) object;
+        }
+        return 0.0f;
     }
 
     public byte getByte(String path) {
-        return (byte) getLastFromSection(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof Byte) {
+            return (byte) object;
+        }
+        return 0;
     }
 
     public short getShort(String path) {
-        return (short) getLastFromSection(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof Short) {
+            return (short) object;
+        }
+        return 0;
     }
 
 
     public List<String> getStringList(String path) {
-        if (data.get(path) instanceof AbstractList<?>) {
-            return (AbstractList<String>) data.get(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof AbstractList<?>) {
+            return (AbstractList<String>) object;
         }
         return Collections.emptyList();
     }
     public List<Integer> getIntList(String path) {
-        if (data.get(path) instanceof AbstractList<?>) {
-            return (AbstractList<Integer>) data.get(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof AbstractList<?>) {
+            return (AbstractList<Integer>) object;
         }
         return Collections.emptyList();
     }
     public List<Double> getDoubleList(String path) {
-        if (data.get(path) instanceof AbstractList<?>) {
-            return (AbstractList<Double>) data.get(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof AbstractList<?>) {
+            return (AbstractList<Double>) object;
         }
         return Collections.emptyList();
     }
     public List<Long> getLongList(String path) {
-        if (data.get(path) instanceof AbstractList<?>) {
-            return (AbstractList<Long>) data.get(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof AbstractList<?>) {
+            return (AbstractList<Long>) object;
         }
         return Collections.emptyList();
     }
     public List<Float> getFloatList(String path) {
-        if (data.get(path) instanceof AbstractList<?>) {
-            return (AbstractList<Float>) data.get(path);
+        final Object object = getLastFromSection(path);
+        if (object instanceof AbstractList<?>) {
+            return (AbstractList<Float>) object;
+        }
+        return Collections.emptyList();
+    }
+    public List<Object> getObjectList(String path) {
+        final Object object = getLastFromSection(path);
+        if (object instanceof AbstractList<?>) {
+            return (AbstractList<Object>) object;
         }
         return Collections.emptyList();
     }
 
+    @Nullable
     public Object get(String path) {
         return getLastFromSection(path);
     }
