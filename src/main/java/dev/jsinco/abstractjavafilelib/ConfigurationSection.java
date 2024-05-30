@@ -67,7 +67,7 @@ public class ConfigurationSection {
         section.data.put(lastKey, value);
     }
 
-
+    @Nullable
     public String getString(String path) {
         final Object object = getLastFromSection(path);
         if (object instanceof String) {
