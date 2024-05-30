@@ -10,11 +10,17 @@ public abstract class FileLibSettings {
     private static LibLogger libLogger;
 
     public static void set(File dataFolder, Logger logger) {
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs();
+        }
         FileLibSettings.dataFolder = dataFolder;
         libLogger = new LibLogger(logger);
     }
 
     public static void set(File dataFolder, org.slf4j.Logger logger) {
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs();
+        }
         FileLibSettings.dataFolder = dataFolder;
         libLogger = new LibLogger(logger);
     }
