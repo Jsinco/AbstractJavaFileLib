@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings({"unchecked", "unused"})
 public class ConfigurationSection {
@@ -54,7 +55,7 @@ public class ConfigurationSection {
         for (String key : keys) {
             section = section.getConfigurationSection(key);
         }
-        return section.data.get(lastKey);
+        return Map.copyOf(section.data).get(lastKey);
     }
 
     private void setLastInSection(String path, Object value) {
