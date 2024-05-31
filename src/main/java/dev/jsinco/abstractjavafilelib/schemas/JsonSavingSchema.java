@@ -106,16 +106,6 @@ public class JsonSavingSchema extends AbstractFileManager {
 
     public void save(boolean indent) {
         Preconditions.checkArgument(file != null, "File cannot be null");
-        List<String> forRemoval = new ArrayList<>();
-        for (Map.Entry<String, Object> entry : data.entrySet()) {
-            if ((entry.getValue() instanceof Collection<?> list && list.isEmpty()) || (entry.getValue() instanceof Map<?,?> map && map.isEmpty())) {
-                forRemoval.add(entry.getKey());
-            }
-        }
-
-        for (String key : forRemoval) {
-            data.remove(key);
-        }
 
         try (JsonWriter jsonWriter = new JsonWriter(new FileWriter(file))){
             if (indent) jsonWriter.setIndent("    ");
