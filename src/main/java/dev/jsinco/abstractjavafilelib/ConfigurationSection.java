@@ -1,6 +1,7 @@
 package dev.jsinco.abstractjavafilelib;
 
 import com.google.gson.internal.LinkedTreeMap;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.AbstractList;
@@ -10,7 +11,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @SuppressWarnings({"unchecked", "unused"})
 public class ConfigurationSection {
@@ -32,9 +32,20 @@ public class ConfigurationSection {
         return data.containsKey(key);
     }
 
-
+    @Nullable
     public ConfigurationSection getConfigurationSection(String key) {
-        data.computeIfAbsent(key, k -> new LinkedHashMap<String, Object>());
+        return getConfigurationSection(key, false);
+    }
+
+    @Contract("_, true -> !null")
+    public ConfigurationSection getConfigurationSection(String key, boolean create) {
+        if (!data.containsKey(key)) {
+            if (create) {
+                data.computeIfAbsent(key, k -> new LinkedHashMap<String, Object>());
+            } else {
+                return null;
+            }
+        }
         Object object = data.get(key);
 
         if (object instanceof LinkedHashMap<?, ?>) { // SNAKEYAML + GSON
@@ -53,9 +64,15 @@ public class ConfigurationSection {
         String lastKey = keys.remove(keys.size() - 1);
         ConfigurationSection section = this;
         for (String key : keys) {
+            if (section == null) {
+                return null;
+            }
             section = section.getConfigurationSection(key);
         }
-        return Map.copyOf(section.data).get(lastKey);
+        if (section == null) {
+            return null;
+        }
+        return section.data.get(lastKey);
     }
 
     private void setLastInSection(String path, Object value) {
@@ -63,7 +80,7 @@ public class ConfigurationSection {
         String lastKey = keys.remove(keys.size() - 1);
         ConfigurationSection section = this;
         for (String key : keys) {
-            section = section.getConfigurationSection(key);
+            section = section.getConfigurationSection(key, true);
         }
         section.data.put(lastKey, value);
     }
