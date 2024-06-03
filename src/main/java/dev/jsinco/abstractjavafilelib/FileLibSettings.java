@@ -25,6 +25,14 @@ public abstract class FileLibSettings {
         libLogger = new LibLogger(logger);
     }
 
+    public static void set(File dataFolder) {
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs();
+        }
+        FileLibSettings.dataFolder = dataFolder;
+        libLogger = new LibLogger(Logger.getGlobal());
+    }
+
     public static File getDataFolder() {
         if (dataFolder == null) {
             String path = AbstractFileManager.class.getProtectionDomain().getCodeSource().getLocation().getPath();
