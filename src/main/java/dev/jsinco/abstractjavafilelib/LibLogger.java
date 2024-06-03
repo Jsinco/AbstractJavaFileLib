@@ -2,7 +2,7 @@ package dev.jsinco.abstractjavafilelib;
 
 import java.util.logging.Logger;
 
-public class LibLogger {
+public class LibLogger { // ttt
 
     private Logger logger;
     private org.slf4j.Logger slf4jLogger;
