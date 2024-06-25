@@ -155,6 +155,8 @@ public class ConfigurationSection {
         final Object object = getLastFromSection(path);
         if (object instanceof AbstractList<?>) {
             return (AbstractList<String>) object;
+        } else if (object instanceof List<?>) {
+            return (List<String>) object;
         }
         return Collections.emptyList();
     }
@@ -162,6 +164,8 @@ public class ConfigurationSection {
         final Object object = getLastFromSection(path);
         if (object instanceof AbstractList<?>) {
             return (AbstractList<Integer>) object;
+        } else if (object instanceof List<?>) {
+            return (List<Integer>) object;
         }
         return Collections.emptyList();
     }
@@ -169,6 +173,8 @@ public class ConfigurationSection {
         final Object object = getLastFromSection(path);
         if (object instanceof AbstractList<?>) {
             return (AbstractList<Double>) object;
+        } else if (object instanceof List<?>) {
+            return (List<Double>) object;
         }
         return Collections.emptyList();
     }
@@ -176,6 +182,8 @@ public class ConfigurationSection {
         final Object object = getLastFromSection(path);
         if (object instanceof AbstractList<?>) {
             return (AbstractList<Long>) object;
+        } else if (object instanceof List<?>) {
+            return (List<Long>) object;
         }
         return Collections.emptyList();
     }
@@ -183,6 +191,8 @@ public class ConfigurationSection {
         final Object object = getLastFromSection(path);
         if (object instanceof AbstractList<?>) {
             return (AbstractList<Float>) object;
+        } else if (object instanceof List<?>) {
+            return (List<Float>) object;
         }
         return Collections.emptyList();
     }
@@ -190,6 +200,8 @@ public class ConfigurationSection {
         final Object object = getLastFromSection(path);
         if (object instanceof AbstractList<?>) {
             return (AbstractList<Object>) object;
+        } else if (object instanceof List<?>) {
+            return (List<Object>) object;
         }
         return Collections.emptyList();
     }
