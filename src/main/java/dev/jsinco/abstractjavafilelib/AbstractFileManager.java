@@ -11,11 +11,19 @@ public abstract class AbstractFileManager extends ConfigurationSection {
     protected final static File dataFolder = FileLibSettings.getDataFolder();
     protected final static LibLogger logger = FileLibSettings.getLogger();
 
-    protected final File file;
+    protected File file;
 
 
     public AbstractFileManager(File file) {
         this.file = file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public File getFile() {
+        return file;
     }
 
 

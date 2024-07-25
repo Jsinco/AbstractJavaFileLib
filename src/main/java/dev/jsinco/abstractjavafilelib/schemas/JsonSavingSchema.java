@@ -75,26 +75,7 @@ public class JsonSavingSchema extends AbstractFileManager {
 
     @Override
     public JsonSavingSchema generateFile() {
-        if (!file.exists()) {
-            try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(file.getName())) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-
-                if (inputStream != null) {
-                    OutputStream outputStream = Files.newOutputStream(file.toPath());
-                    byte[] buffer = new byte[1024];
-                    int bytesRead;
-                    while ((bytesRead = inputStream.read(buffer)) != -1) {
-                        outputStream.write(buffer, 0, bytesRead);
-                    }
-                    outputStream.flush();
-                    outputStream.close();
-                }
-
-            } catch (IOException e) {
-                logger.error("Error creating file: " + e.getMessage());
-            }
-        }
+        super.generateFile();
         return loadFile();
     }
 

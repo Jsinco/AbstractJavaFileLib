@@ -29,7 +29,7 @@ public class ConfigurationSection {
     }
 
     public boolean contains(String key) {
-        return data.containsKey(key);
+        return getLastFromSection(key) != null;
     }
 
     @Nullable
@@ -150,6 +150,75 @@ public class ConfigurationSection {
         return 0;
     }
 
+
+    //
+
+
+    public String getString(String path, String defaultTo) {
+        final Object object = getLastFromSection(path);
+        if (object instanceof String) {
+            return (String) object;
+        }
+        return defaultTo;
+    }
+
+    public int getInt(String path, int defaultTo) {
+        final Object object = getLastFromSection(path);
+        if (object instanceof Integer) {
+            return (int) object;
+        }
+        return defaultTo;
+    }
+
+    public boolean getBoolean(String path, boolean defaultTo) {
+        final Object object = getLastFromSection(path);
+        if (object instanceof Boolean) {
+            return (boolean) object;
+        }
+        return defaultTo;
+    }
+
+    public double getDouble(String path, double defaultTo) {
+        final Object object = getLastFromSection(path);
+        if (object instanceof Double) {
+            return (double) object;
+        }
+        return defaultTo;
+    }
+
+    public long getLong(String path, long defaultTo) {
+        final Object object = getLastFromSection(path);
+        if (object instanceof Long) {
+            return (long) object;
+        }
+        return defaultTo;
+    }
+
+    public float getFloat(String path, float defaultTo) {
+        final Object object = getLastFromSection(path);
+        if (object instanceof Float) {
+            return (float) object;
+        }
+        return defaultTo;
+    }
+
+    public byte getByte(String path, byte defaultTo) {
+        final Object object = getLastFromSection(path);
+        if (object instanceof Byte) {
+            return (byte) object;
+        }
+        return defaultTo;
+    }
+
+    public short getShort(String path, short defaultTo) {
+        final Object object = getLastFromSection(path);
+        if (object instanceof Short) {
+            return (short) object;
+        }
+        return defaultTo;
+    }
+
+    //
 
     public List<String> getStringList(String path) {
         final Object object = getLastFromSection(path);
