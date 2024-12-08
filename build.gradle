@@ -20,9 +20,29 @@ dependencies {
 }
 
 publishing {
-    publishing {
-        publications {
+
+    def user = System.getenv("repo_username")
+    def pass = System.getenv("repo_secret")
+
+    repositories {
+        if (user != null && pass != null) {
+            maven {
+                name = "jsinco-repo"
+                url = uri("https://repo.jsinco.dev/releases")
+                credentials {
+                    username = user
+                    password = pass
+                }
+            }
+        }
+    }
+
+    publications {
+        if (user != null && pass != null) {
             maven(MavenPublication) {
+                setGroup(group)
+                setVersion(version)
+                setArtifactId("AbstractJavaFileLib")
                 from components.java
             }
         }
